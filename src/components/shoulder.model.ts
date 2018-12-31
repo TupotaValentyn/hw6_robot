@@ -9,7 +9,7 @@ export class ShoulderModel extends UnitModel {
 		top: -9,
 		left: -24,
 		'background-image': 'url(i/12.png)',
-		transform: 'rotateZ(10deg)'
+		transform: 'rotateZ(10deg)',
 	};
 	private interval: number;
 	private topPart = new ArmPartModel();
@@ -33,8 +33,9 @@ export class ShoulderModel extends UnitModel {
 		const delay = 1000;
 		let up = true;
 		let rotateZ = 11;
-
+		
 		this.interval = setInterval(() => {
+			
 			if(rotateZ === 10) {
 				this.view.transform = 'rotateZ('+ 10 +'deg)';
 				clearInterval(this.interval);
