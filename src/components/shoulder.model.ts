@@ -1,6 +1,7 @@
 import { UnitModel } from './../shared/unit.model';
 import { ArmPartModel } from './arm-part.model';
 import { WeaponModel } from './weapon.model';
+import { Bullet } from './bullet.model';
 
 export class ShoulderModel extends UnitModel {
 	protected view = {
@@ -14,6 +15,7 @@ export class ShoulderModel extends UnitModel {
 	private interval: number;
 	private topPart = new ArmPartModel();
 	private bottomPart = new ArmPartModel();
+	private bullet = new Bullet
 
 	constructor() {
 		super();
@@ -34,10 +36,12 @@ export class ShoulderModel extends UnitModel {
 		let up = true;
 		let rotateZ = 11;
 		
+		this.bullet.changeView()
+
 		this.interval = setInterval(() => {
-			
+
 			if(rotateZ === 10) {
-				this.view.transform = 'rotateZ('+ 10 +'deg)';
+				this.view.transform = 'rotateZ('+ 10 +'deg)';				
 				clearInterval(this.interval);
 				return;
 			}
@@ -59,6 +63,7 @@ export class ShoulderModel extends UnitModel {
 
 	addWeapon() {
 		const weapon = new WeaponModel();
+		weapon.addChild(this.bullet, {width: 100, height: 100, 'background-color': 'red'})
 		this.bottomPart.addChild(weapon, {
 			width: 148,
 			height: 72,
@@ -67,4 +72,5 @@ export class ShoulderModel extends UnitModel {
 			transform: 'rotateZ(-88deg) rotateX(0deg) rotateY(176deg)'
 		});
 	}
+
 }

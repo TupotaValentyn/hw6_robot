@@ -4,6 +4,7 @@ import { UnitModel } from './../shared/unit.model';
 import { UnitChild } from './../shared/unit-child.type';
 import { View } from './../shared/view.type';
 
+import { Bullet } from '../components/bullet.model'
 import { ShoulderModel } from './../components/shoulder.model';
 import { HeadModel } from './../components/head.model';
 import { LegModel } from './../components/leg.model';
@@ -38,6 +39,7 @@ export class RobotModel extends UnitModel implements Flyable, Defensible {
 		});
 
 		this.shoulderLeft.addWeapon();
+		
 		this.children.push({
 			view: {
 				width: 68,

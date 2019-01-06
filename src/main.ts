@@ -1,5 +1,6 @@
 import { StageService } from './modules/stage.service';
 import { RobotModel } from './units/robot.model';
+import { Bullet } from './components/bullet.model'
 
 const $stageElem: Element = document.getElementById('stage');
 const stageService = new StageService($stageElem);
