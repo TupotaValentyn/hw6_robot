@@ -37,9 +37,9 @@ export class ShoulderModel extends UnitModel {
 		let rotateZ = 11;
 		
 		this.bullet.changeView()
-
+		let counter = 0
 		this.interval = setInterval(() => {
-
+			
 			if(rotateZ === 10) {
 				this.view.transform = 'rotateZ('+ 10 +'deg)';				
 				clearInterval(this.interval);
@@ -59,11 +59,24 @@ export class ShoulderModel extends UnitModel {
 				return;
 			}
 		}, delay / rotateZTo);
+		clearInterval()
+		setInterval(() => {
+			this.addWeapon({
+				width: '100px', 
+				height: '100px', 
+				transform: `translate(${counter}px, 10px)`,
+				'background-color': 'green'
+			})
+			counter++
+			if (counter === 100) {
+				clearInterval()
+			}
+		}, 20)
 	}
 
-	addWeapon() {
+	addWeapon(bulletstyle) {
 		const weapon = new WeaponModel();
-		weapon.addChild(this.bullet, {width: 100, height: 100, 'background-color': 'red'})
+		weapon.addChild(this.bullet, bulletstyle)
 		this.bottomPart.addChild(weapon, {
 			width: 148,
 			height: 72,
