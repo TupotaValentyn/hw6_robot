@@ -16,6 +16,7 @@ export class ShoulderModel extends UnitModel {
 	private topPart = new ArmPartModel();
 	private bottomPart = new ArmPartModel();
 	private bullet = new Bullet
+	private weapon =  new WeaponModel
 
 	constructor() {
 		super();
@@ -28,6 +29,8 @@ export class ShoulderModel extends UnitModel {
 		});
 	}
 
+
+
 	shot() {
 		clearInterval(this.interval);
 
@@ -36,10 +39,13 @@ export class ShoulderModel extends UnitModel {
 		let up = true;
 		let rotateZ = 11;
 		
-		this.bullet.changeView()
+		this.weapon.addChild(this.bullet, {
+			width: '100px',
+			height: '100px',
+			'background-color': 'red'
+		})
 		let counter = 0
 		this.interval = setInterval(() => {
-			
 			if(rotateZ === 10) {
 				this.view.transform = 'rotateZ('+ 10 +'deg)';				
 				clearInterval(this.interval);
@@ -47,6 +53,15 @@ export class ShoulderModel extends UnitModel {
 			}
 			if(rotateZ >= rotateZTo) {
 				up = false;
+
+				setInterval(() => {
+					this.bullet.changeView(counter)
+					counter++
+					if (counter === 10) {
+						clearInterval()
+						return
+					}
+				}, 25)
 			}
 
 			if(!up) {
@@ -59,25 +74,11 @@ export class ShoulderModel extends UnitModel {
 				return;
 			}
 		}, delay / rotateZTo);
-		clearInterval()
-		setInterval(() => {
-			this.addWeapon({
-				width: '100px', 
-				height: '100px', 
-				transform: `translate(${counter}px, 10px)`,
-				'background-color': 'green'
-			})
-			counter++
-			if (counter === 100) {
-				clearInterval()
-			}
-		}, 20)
+
 	}
 
-	addWeapon(bulletstyle) {
-		const weapon = new WeaponModel();
-		weapon.addChild(this.bullet, bulletstyle)
-		this.bottomPart.addChild(weapon, {
+	addWeapon() {
+		this.bottomPart.addChild(this.weapon, {
 			width: 148,
 			height: 72,
 			top: 67,
